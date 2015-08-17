@@ -16,8 +16,7 @@ library(lattice)
 ## Loading and preprocessing the data
 
 ```{r, results = 'markup', warning = TRUE, message = TRUE}
-unzip("./repdata/RepData_PeerAssessment1/activity.zip", exdir = "./repdata/RepData_PeerAssessment1")
-activity<- read.csv("./repdata/RepData_PeerAssessment1/activity.csv", header = TRUE, stringsAsFactors = FALSE)
+activity<- read.csv("~/repdata/RepData_PeerAssessment1/activity.csv", header = TRUE, stringsAsFactors = FALSE)
 ```
 
 
@@ -79,19 +78,26 @@ sum(is.na(activity))
 
 ##Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
-```{r}
+```{r, echo = FALSE, results = 'hide', warning = FALSE}
 newdata<-activity
+index_na<-is.na(newdata)
 
 if(newdata$interval <500)
 {
 newdata[index_na] == mean(avg_int[1:40,2])
 }
 
-elseif(newdata$interval <1000)
+
+if(newdata$interval <1500 & newdata$interval>500)
 {
 newdata[index_na] == mean(avg_int[40:80,2])
 }
 
+if(newdata$interval < 2400 & newdata$interval>1500)
+{
+newdata[index_na] == mean(avg_int[180:288,2])
+
+}
 
 ```
 
